@@ -1,5 +1,11 @@
 import streamlit as st
 import pandas as pd
+import os
+os.makedirs("data", exist_ok=True)
+os.makedirs("data", exist_ok=True)
+
+TASK_FILE = "data/tasks.csv"
+COURSE_FILE = "data/courses.csv"
 
 st.set_page_config(page_title="Student Command Centre", layout="wide")
 
