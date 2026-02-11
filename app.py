@@ -73,9 +73,13 @@ if st.button("Add Task"):
 
 # Convert & sort
 if not task_df.empty:
-    task_df["Deadline"] = pd.to_datetime(task_df["Deadline"])
-    task_df["Days Left"] = (task_df["Deadline"] - pd.Timestamp.today()).dt.days
-    task_df = task_df.sort_values("Days Left")
+    if "Deadline" in task_df.columns:
+        task_df["Deadline"] = pd.to_datetime(task_df["Deadline"], errors="coerce")
+        task_df["Days Left"] = (
+            task_df["Deadline"] - pd.Timestamp.today().normalize()
+        ).dt.days
+
+        task_df = task_df.sort_values("Days Left")
 
 # Mark complete
 st.subheader("📌 Pending Tasks")
